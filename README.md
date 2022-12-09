@@ -1,3 +1,3 @@
-# Recommendation-system-projects
+# Movie-Recommendation-System
 
-## This repository contains Recommendation system projects.
+
