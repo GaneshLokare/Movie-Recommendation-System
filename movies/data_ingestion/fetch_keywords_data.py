@@ -1,7 +1,6 @@
 import pandas as pd
 import requests
 import os.path as path
-from pandas.io.json import json_normalize
 from pandas import json_normalize
 import sys
 
@@ -33,7 +32,7 @@ class keywords_data:
             keywords_path = path.abspath(path.join(keywords_data_path))
             logging.info("Fetching movies data done")
             logging.info("{} data points are fetched".format((end_index-start_index)))
-            return new_df.to_csv(keywords_path,index=False)
+            return new_df.to_csv(keywords_path,mode='a', index=False, header=False)
 
             
 

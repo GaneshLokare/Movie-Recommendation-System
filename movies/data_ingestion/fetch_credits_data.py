@@ -31,7 +31,7 @@ class credits_data:
             credits_path = path.abspath(path.join(credits_data_path))
             logging.info("Fetching credits data done")
             logging.info("{} data points are fetched".format((end_index-start_index)))
-            return new_df.to_csv(credits_path,index=False)
+            return new_df.to_csv(credits_path,mode='a', index=False, header=False)
 
             
 
