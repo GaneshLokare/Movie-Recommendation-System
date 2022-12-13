@@ -1,8 +1,12 @@
 import pandas as pd
 import ast
+import os.path as path
+from movies.exception import MovieException
+from movies.logger import logging
+import sys
 
 
-from movies.constants.data_ingestion_constants import movie_data_path,keywords_data_path,credits_data_path
+from movies.constants.data_ingestion_constants import movie_data_path,keywords_data_path,credits_data_path,preprocessed_data_path,start_index, end_index
 
 
 
@@ -49,3 +53,8 @@ def fetch_director(text):
     return L
 
 data['crew'] = data['crew'].apply(fetch_director)
+
+data_path = path.abspath(path.join(preprocessed_data_path))
+logging.info("Fetching movies data done")
+logging.info("{} data points are fetched".format((end_index-start_index)))
+data.to_csv(data_path,mode='a', index=False, header=False)
