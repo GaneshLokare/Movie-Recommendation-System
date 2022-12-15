@@ -4,4 +4,6 @@ from-root==1.0.2
 DateTime==4.4
 requests
 astdump
+nltk
+regex
 -e .

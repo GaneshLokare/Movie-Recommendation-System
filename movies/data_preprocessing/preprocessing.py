@@ -59,9 +59,12 @@ class Preprocessing:
 
             data['crew'] = data['crew'].apply(fetch_director)
 
+           
             data_path = path.abspath(path.join(preprocessed_data_path))
             logging.info("Fetching movies data done")
             logging.info("{} data points are fetched".format((end_index-start_index)))
-            data.to_csv(data_path,mode='a', index=False, header=False)
+            data.to_csv(data_path,mode='a', index=False)
         except  Exception as e:
                 raise  MovieException(e,sys)
+
+Preprocessing.data_preprocessing()
