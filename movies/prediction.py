@@ -28,4 +28,4 @@ class Prediction:
         except  Exception as e:
                 raise  MovieException(e,sys)
 
-Prediction.get_recommendations('Thor')
+Prediction.get_recommendations('Iron Man')

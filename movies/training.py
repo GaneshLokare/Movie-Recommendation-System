@@ -35,4 +35,3 @@ class Train_model:
         
         except  Exception as e:
                 raise  MovieException(e,sys)
-Train_model.train()

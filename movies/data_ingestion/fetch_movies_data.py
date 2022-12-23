@@ -43,4 +43,3 @@ class movies_data:
         except  Exception as e:
                 raise  MovieException(e,sys)
 
-movies_data.fetch_data()

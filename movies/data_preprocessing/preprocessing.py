@@ -103,4 +103,3 @@ class Preprocessing:
                 raise  MovieException(e,sys)
 
 
-Preprocessing.data_preprocessing()

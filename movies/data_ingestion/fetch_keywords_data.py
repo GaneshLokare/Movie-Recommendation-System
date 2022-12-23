@@ -39,4 +39,3 @@ class keywords_data:
         except  Exception as e:
                 raise  MovieException(e,sys)
 
-keywords_data.fetch_data()
