@@ -1,6 +1,10 @@
 import pandas as pd
 import ast
 import os.path as path
+from regex import regex as re
+import nltk
+from nltk.stem import PorterStemmer
+from nltk.tokenize import word_tokenize
 from movies.exception import MovieException
 from movies.logger import logging
 import sys
@@ -34,7 +38,6 @@ class Preprocessing:
             data['keywords'] = data['keywords'].apply(convert)
             data['genres'] = data['genres'].apply(convert)
             data['production_companies'] = data['production_companies'].apply(convert)
-            data['production_countries'] = data['production_countries'].apply(convert)
             data['spoken_languages'] = data['spoken_languages'].apply(convert)
 
             def convert_4(text):
@@ -59,12 +62,45 @@ class Preprocessing:
 
             data['crew'] = data['crew'].apply(fetch_director)
 
+            data['release_date'] = data['release_date'].apply(lambda x: x[:4])
+            
+
+            data['genres'] = data['genres'].apply(lambda x: ' '.join(x))
+            data['keywords'] = data['keywords'].apply(lambda x: ' '.join(x))
+            data['production_companies'] = data['production_companies'].apply(lambda x: ' '.join(x))
+            data['spoken_languages'] = data['spoken_languages'].apply(lambda x: ' '.join(x))
+            data['spoken_languages'] = data['spoken_languages'].apply(lambda x: ' '.join(x))
+            data['cast'] = data['cast'].apply(lambda x: ' '.join(x))
+            data['crew'] = data['crew'].apply(lambda x: ' '.join(x))
+
+            data['text'] = data['genres'] + data['keywords'] + data['original_language'] + data['overview'] + data['production_companies'] + data['spoken_languages'] +data['tagline']+ data['cast'] + data['crew']
+
+            new_data = data[['id','title','text','popularity','release_date','vote_average']]
+
+            # remove all special characters and lower the cases
+            def remove_special_characters(text):
+                text = re.sub(r'[^\w\s]', '', str(text).lower().strip())
+                return text
+
+            new_data["text"] = new_data["text"].apply(lambda x: remove_special_characters (x))
+
+
+            # lemmetization
+            def lem_words(text):
+                lst_text = text.split()
+                lem = nltk.stem.wordnet.WordNetLemmatizer()
+                lst_text = [lem.lemmatize(word) for word in lst_text]
+                text = " ".join(lst_text)
+                return text
+
+            new_data["text"] = new_data["text"].apply(lambda x: lem_words (x))
+
            
             data_path = path.abspath(path.join(preprocessed_data_path))
-            logging.info("Fetching movies data done")
-            logging.info("{} data points are fetched".format((end_index-start_index)))
-            data.to_csv(data_path,mode='a', index=False)
+            logging.info("Preprocessing done")
+            new_data.to_csv(data_path, mode= 'a', index=False)
         except  Exception as e:
                 raise  MovieException(e,sys)
+
 
 Preprocessing.data_preprocessing()

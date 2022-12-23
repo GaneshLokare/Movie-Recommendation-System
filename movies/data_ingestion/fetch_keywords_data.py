@@ -30,9 +30,9 @@ class keywords_data:
             new_df = df1.dropna()
 
             keywords_path = path.abspath(path.join(keywords_data_path))
-            logging.info("Fetching movies data done")
+            logging.info("Fetching keywords data done")
             logging.info("{} data points are fetched".format((end_index-start_index)))
-            return new_df.to_csv(keywords_path,mode='a', index=False, header=False)
+            return new_df.to_csv(keywords_path,mode='a', index=False,header=False)
 
             
 

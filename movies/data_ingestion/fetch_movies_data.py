@@ -26,17 +26,16 @@ class movies_data:
                 df = pd.concat([df,temp_df],ignore_index=True)
 
 
-            df1 = df[['genres', 'id', 'original_language',
-                 'overview', 'popularity', 'production_companies',
-                'production_countries', 'release_date',
-                'spoken_languages', 'tagline', 'title', 'vote_average']]
+            df1 = df[['id','title','genres', 'original_language',
+                 'overview', 'popularity', 'production_companies', 'release_date',
+                'spoken_languages', 'tagline', 'vote_average','vote_count']]
 
-            new_df = df1.dropna()
+            new_df = df1[df1['title'].notna()]
 
             movie_path = path.abspath(path.join(movie_data_path))
             logging.info("Fetching movies data done")
             logging.info("{} data points are fetched".format((end_index-start_index)))
-            return new_df.to_csv(movie_path,mode='a', index=False,header=False)
+            return new_df.to_csv(movie_path,mode='a', index=False, header=False)
 
 
             
