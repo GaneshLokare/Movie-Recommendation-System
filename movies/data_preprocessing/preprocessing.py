@@ -8,6 +8,8 @@ from nltk.tokenize import word_tokenize
 from movies.exception import MovieException
 from movies.logger import logging
 import sys
+import warnings
+warnings.filterwarnings('ignore')
 
 
 from movies.constants.data_ingestion_constants import movie_data_path,keywords_data_path,credits_data_path,preprocessed_data_path,start_index, end_index
@@ -19,9 +21,11 @@ class Preprocessing:
         pass
     def data_preprocessing():
         try:
-            movies = pd.read_csv(movie_data_path)
-            keywords = pd.read_csv(keywords_data_path)
-            credits = pd.read_csv(credits_data_path)
+            pre = pd.read_csv(preprocessed_data_path)
+            rows = pre.shape[0]
+            movies = pd.read_csv(movie_data_path,skiprows = [i for i in range(1, rows+1) ])
+            keywords = pd.read_csv(keywords_data_path,skiprows = [i for i in range(1, rows+1) ])
+            credits = pd.read_csv(credits_data_path,skiprows = [i for i in range(1, rows+1) ])
 
             df = keywords.merge(movies, on = 'id')
 
@@ -98,7 +102,7 @@ class Preprocessing:
            
             data_path = path.abspath(path.join(preprocessed_data_path))
             logging.info("Preprocessing done")
-            new_data.to_csv(data_path, mode= 'a', index=False)
+            new_data.to_csv(data_path,mode='a', index=False,header=False)
         except  Exception as e:
                 raise  MovieException(e,sys)
 

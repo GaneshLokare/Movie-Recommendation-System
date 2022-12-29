@@ -31,7 +31,11 @@ class Train_model:
 
             data_path = path.abspath(path.join(cosine_sim_data_path))
             logging.info("Training done")
+            #cosine_sim.to_csv(data_path, mode= 'a', index=False)
             save(data_path,cosine_sim)
         
         except  Exception as e:
                 raise  MovieException(e,sys)
+
+
+
