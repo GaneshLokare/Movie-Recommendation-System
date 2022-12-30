@@ -27,6 +27,7 @@ class Preprocessing:
             keywords = pd.read_csv(keywords_data_path,skiprows = [i for i in range(1, rows+1) ])
             credits = pd.read_csv(credits_data_path,skiprows = [i for i in range(1, rows+1) ])
 
+
             df = keywords.merge(movies, on = 'id')
 
             data = df.merge(credits, on = 'id')
@@ -79,7 +80,7 @@ class Preprocessing:
 
             data['text'] = data['genres'] + data['keywords'] + data['original_language'] + data['overview'] + data['production_companies'] + data['spoken_languages'] +data['tagline']+ data['cast'] + data['crew']
 
-            new_data = data[['id','title','text','popularity','release_date','vote_average']]
+            new_data = data[['id','title','text','popularity','release_date','vote_average','vote_count']]
 
             # remove all special characters and lower the cases
             def remove_special_characters(text):
@@ -102,8 +103,7 @@ class Preprocessing:
            
             data_path = path.abspath(path.join(preprocessed_data_path))
             logging.info("Preprocessing done")
-            new_data.to_csv(data_path,mode='a', index=False,header=False)
+            new_data.to_csv(data_path, mode= 'a', index=False, header= False)
         except  Exception as e:
                 raise  MovieException(e,sys)
-
 
