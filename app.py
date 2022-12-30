@@ -15,18 +15,22 @@ def home():
 
 @app.route('/movie_recommendation',methods=['POST'])
 
-def get_recommendations(movie):
+def get_recommendations():
+    req = request.form.to_dict()
+    movie_title = req['movie']
     cosine_sim = load(cosine_sim_data_path)
 
     # get the index of title
-    index = new_df[new_df['title'] == movie].index[0] 
+    index = new_df[new_df['title'] == movie_title].index[0] 
             
     # Get the pairwsie similarity scores of all movies with that movie and Sort the movies based on the similarity scores
     distances = sorted(list(enumerate(cosine_sim[index])),reverse=True,key = lambda x: x[1])
             
     # Get the scores of the 5 most similar movies
+    movies = []
     for i in distances[1:6]:
-        print(new_df.iloc[i[0]].title)
+        movies.append(new_df.iloc[i[0]].title)
+    return render_template('output.html',movies = movies )
 
         
 

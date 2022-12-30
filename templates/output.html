@@ -1,0 +1,15 @@
+{% block content %}
+    <h1>{% block title %} Recommended movies {% endblock %}</h1>
+    <div style="width: 50%; margin: auto">
+
+        {% for movie in movies %}
+        
+        <div style="padding: 5px; background-color: #EEE; margin: 10px">
+            <p style="font-size: 14px">{{movie}}</p>
+            
+            
+        </div>
+        {% endfor %}
+        
+    </div>
+{% endblock %}
