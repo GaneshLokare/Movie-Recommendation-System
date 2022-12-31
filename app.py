@@ -30,7 +30,7 @@ def get_recommendations():
     movies = []
     for i in distances[1:6]:
         movies.append(new_df.iloc[i[0]].title)
-    return render_template('output.html',movies = movies )
+    return render_template('index.html',movies = movies )
 
 @app.route('/Popular_Movies')
 def Popular_Movies():

@@ -6,11 +6,23 @@
 
 <div>
   <form action="/movie_recommendation" method="POST">
-    <label for="movie">movie</label>
-      <textarea name="movie" rows="10" cols="30"></textarea>>
+    <label for="movie">Enter a movie name</label>
+    <br>
+      <textarea name="movie" rows="2" cols="30"></textarea>>
     <br>
     <input type="submit" value="Submit">
   </form>
+  <h1> Recommended movies</h1>
+  <div style="width: 50%; margin: auto">
+
+    {% for movie in movies %}
+    
+    <div style="padding: 5px; background-color: #EEE; margin: 10px">
+        <p style="font-size: 14px">{{movie}}</p>
+        
+        
+    </div>
+    {% endfor %}
   
 </div>
 </body>
