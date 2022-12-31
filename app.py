@@ -32,6 +32,12 @@ def get_recommendations():
         movies.append(new_df.iloc[i[0]].title)
     return render_template('output.html',movies = movies )
 
+@app.route('/Popular_Movies')
+def Popular_Movies():
+    pop= new_df.sort_values('popularity', ascending=False)
+    popular_movies = list(pop['title'].head(10))
+    return render_template('output1.html',popular_movies = popular_movies )
+        
         
 
 if __name__ == "__main__":
