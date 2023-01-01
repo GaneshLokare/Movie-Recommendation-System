@@ -1,9 +1,8 @@
 from flask import Flask,request, jsonify, render_template
 import pandas as pd
 from numpy import load
-import sys
 from movies.constants.data_ingestion_constants import preprocessed_data_path, cosine_sim_data_path
-from movies.exception import MovieException
+
 
 new_df = pd.read_csv(preprocessed_data_path)
 
@@ -36,8 +35,13 @@ def get_recommendations():
 def Popular_Movies():
     pop= new_df.sort_values('popularity', ascending=False)
     popular_movies = list(pop['title'].head(10))
-    return render_template('output1.html',popular_movies = popular_movies )
-        
+    return render_template('popular.html',popular_movies = popular_movies )
+
+@app.route('/Latest_Movies')
+def Latest_Movies():
+        latest= new_df.sort_values('release_date', ascending=False)
+        latest_movies = list(latest['title'].head(10))
+        return render_template('latest.html',latest_movies = latest_movies )
         
 
 if __name__ == "__main__":

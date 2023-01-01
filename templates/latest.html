@@ -1,0 +1,17 @@
+{% block content %}
+    <h1>{% block title %} Latest movies {% endblock %}</h1>
+    <div style="width: 50%; margin: auto">
+
+        {% for latest_movie in latest_movies %}
+        
+        <div style="padding: 5px; background-color: #EEE; margin: 10px">
+            <p style="font-size: 14px">{{latest_movie}}</p>
+            
+            
+        </div>
+        {% endfor %}
+        
+    </div>
+
+{% endblock %}
+
