@@ -5,6 +5,8 @@ from movies.constants.data_ingestion_constants import preprocessed_data_path, co
 
 
 new_df = pd.read_csv(preprocessed_data_path)
+new_df['title_low'] = new_df['title'].apply(lambda x: x.lower())
+new_df['title_low'] = new_df['title_low'].apply(lambda x: x.replace(' ',''))
 
 app = Flask(__name__)
 
@@ -17,19 +19,25 @@ def home():
 def get_recommendations():
     req = request.form.to_dict()
     movie_title = req['movie']
+    movie_title = movie_title.lower().replace(' ','')
     cosine_sim = load(cosine_sim_data_path)
 
-    # get the index of title
-    index = new_df[new_df['title'] == movie_title].index[0] 
+    try:
+        # get the index of title
+        index = new_df[new_df['title_low'] == movie_title].index[0]
+    
             
-    # Get the pairwsie similarity scores of all movies with that movie and Sort the movies based on the similarity scores
-    distances = sorted(list(enumerate(cosine_sim[index])),reverse=True,key = lambda x: x[1])
+        # Get the pairwsie similarity scores of all movies with that movie and Sort the movies based on the similarity scores
+        distances = sorted(list(enumerate(cosine_sim[index])),reverse=True,key = lambda x: x[1])
             
-    # Get the scores of the 5 most similar movies
-    movies = []
-    for i in distances[1:6]:
-        movies.append(new_df.iloc[i[0]].title)
-    return render_template('index.html',movies = movies )
+        # Get the scores of the 5 most similar movies
+        movies = []
+        for i in distances[1:6]:
+            movies.append(new_df.iloc[i[0]].title)
+        return render_template('index.html',movies = movies )
+
+    except:
+        return render_template('message.html')
 
 @app.route('/Popular_Movies')
 def Popular_Movies():
