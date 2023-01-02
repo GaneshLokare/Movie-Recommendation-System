@@ -39,12 +39,14 @@ def get_recommendations():
     except:
         return render_template('message.html')
 
+# get 10 popular movies
 @app.route('/Popular_Movies')
 def Popular_Movies():
     pop= new_df.sort_values('popularity', ascending=False)
     popular_movies = list(pop['title'].head(10))
     return render_template('popular.html',popular_movies = popular_movies )
 
+# get 10 latest movies
 @app.route('/Latest_Movies')
 def Latest_Movies():
         latest= new_df.sort_values('release_date', ascending=False)

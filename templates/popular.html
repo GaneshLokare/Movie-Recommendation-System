@@ -1,11 +1,13 @@
-{% block content %}
+<!DOCTYPE html>
+<html>
+<body>{% block content %}
     <h1>{% block title %} Popular movies {% endblock %}</h1>
     <div style="width: 50%; margin: auto">
 
-        {% for pop_movie in popular_movies %}
+        {% for popular_movie in popular_movies %}
         
         <div style="padding: 5px; background-color: #EEE; margin: 10px">
-            <p style="font-size: 14px">{{pop_movie}}</p>
+            <p style="font-size: 14px">{{popular_movie}}</p>
             
             
         </div>
@@ -14,4 +16,6 @@
     </div>
 
 {% endblock %}
+</body>
+</html>
 
