@@ -38,3 +38,4 @@ class credits_data:
         except  Exception as e:
                 raise  MovieException(e,sys)
 
+credits_data.fetch_data()
