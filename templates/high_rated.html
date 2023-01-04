@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>{% block content %}
+    <h1>{% block title %} High Rated  Movies {% endblock %}</h1>
+    <div style="width: 50%; margin: auto">
+
+        {% for high_rated_movie in high_rated_movies %}
+        
+        <div style="padding: 5px; background-color: #EEE; margin: 10px">
+            <p style="font-size: 14px">{{high_rated_movie}}</p>
+            
+            
+        </div>
+        {% endfor %}
+        
+    </div>
+
+{% endblock %}
+</body>
+</html>
+

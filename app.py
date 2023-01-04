@@ -39,6 +39,26 @@ def get_recommendations():
     except:
         return render_template('message.html')
 
+# get 10 High rated movies 
+@app.route('/High_Rated_Movies')
+def High_Rated_Movies():
+    C= new_df['vote_average'].mean() # mean vote across the whole report
+    m= new_df['vote_count'].quantile(0.9) # minimum votes required to be listed in the chart.
+    q_movies = new_df.copy().loc[new_df['vote_count'] >= m] # filter out the movies that qualify for the chart
+
+    def weighted_rating(x, m=m, C=C):
+        v = x['vote_count']
+        R = x['vote_average']
+        # Calculation based on the IMDB formula
+        return (v/(v+m) * R) + (m/(m+v) * C)
+            
+    q_movies['score'] = q_movies.apply(weighted_rating, axis=1)
+    #Sort movies based on score calculated above
+    q_movies = q_movies.sort_values('score', ascending=False)
+    #Print the top 10 movies
+    high_rated_movies = list(q_movies['title'].head(10))
+    return render_template('high_rated.html',high_rated_movies = high_rated_movies )
+
 # get 10 popular movies
 @app.route('/Popular_Movies')
 def Popular_Movies():
