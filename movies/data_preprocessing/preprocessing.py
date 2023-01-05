@@ -25,7 +25,7 @@ class Preprocessing:
             rows = pre.shape[0]
             movies = pd.read_csv(movie_data_path,skiprows = [i for i in range(1, rows+1) ])
             keywords = pd.read_csv(keywords_data_path,skiprows = [i for i in range(1, rows+1) ])
-            credits = pd.read_csv(credits_data_path,skiprows = [i for i in range(1, rows+1) ],on_bad_lines='skip')
+            credits = pd.read_csv(credits_data_path,skiprows = [i for i in range(1, rows+1) ])
 
 
             df = keywords.merge(movies, on = 'id')
