@@ -21,7 +21,9 @@ Some of the technical aspects of the project include the following:
 3) Get your API key from https://www.themoviedb.org/.
 4) Replace YOUR_API_KEY in data ingintion constant and save it.
 5) set a windows task shedular. [Watch video] (https://www.youtube.com/watch?v=4n2fC97MNac) 
-5) Open your terminal/command prompt from your project directory and run the file main.py by executing the command python app.py.
+6) Open your terminal/command prompt from your project directory and run the file main.py by executing the command python main.py. 
+It will train model.
+7) Open your terminal/command prompt from your project directory and run the file app.py by executing the command python app.py.
 Go to your browser and type http://192.168.181.65:8080  in the address bar.
 
 ## Dependencies:
